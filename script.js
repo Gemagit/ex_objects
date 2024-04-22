@@ -47,10 +47,11 @@ miEstudiante.registrar();
 class Profesor extends Persona {
     constructor(nombre, edad, genero, asignatura, nivel) {
         super(nombre, edad, genero)
-        this.asignatura = asignatura;
-        this.nivel = nivel;
+        this.asignar(asignatura,nivel)
     }
-    asignar() {
+    asignar(asignatura,nivel) {
+        this.asignatura = asignatura;
+        this.nivel=nivel;
         console.log(`Se te ha asignado un profesor:
         Nombre:${this.nombre}
         Edad:${this.edad}
@@ -61,7 +62,7 @@ class Profesor extends Persona {
 }
 
 let newProfesor = new Profesor("Alejandro", 36, "masculino", "React", "10");
-newProfesor.asignar();
+newProfesor.asignar("React", "10");
 
 //Crear los objetos y casos de prueba necesarios para comprobar el correcto funcionamiento de la jerarquía de clases.
 

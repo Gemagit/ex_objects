@@ -2,52 +2,49 @@
 
 
 class Warrior {
-    constructor(name, life, power) {
-        this.name = name;
-        this.life = life;
-        this.power = power;
+    constructor(life, power) {
+      this.life = life;
+      this.power = power;
     }
-
-    attack(target) {
-        console.log(`${this.name} ataca a ${target.name}`);
-        target.defend(this.power);
-    }
-
+    attack() {
+      return this.power;
+      }
+      
     defend(damage) {
-        this.life -= damage;
-        console.log(`${this.name}: Vida restante: ${this.life}`);
+      this.life = this.life - damage;
+      console.log("Vida restante:" + this.life);
     }
-}
-
-class Maya extends Warrior {
+  }
+  
+  class Maya extends Warrior {
     constructor(life, power) {
-        super("Maya", life, power);
+      super(life, power);
     }
-
     drinkColaCao() {
-        this.power += 10;
+      this.power += 10;
+      console.log(`Maya tiene ${this.power} de poder`);
     }
-}
-
-class Aztec extends Warrior {
+  }
+  
+  class Azteca extends Warrior {
     constructor(life, power) {
-        super("Aztec", life, power);
+      super(life, power);
     }
-
     drinkNesquik() {
-        this.life += 10;
+      this.life += 10;
+      console.log(`Azteca tiene ${this.life} de vida`);
     }
-}
-
-//crear nuevos guerreros
-let newMaya = new Maya(300, 50);
-let newAztec = new Aztec(200, 20);
-
-// Intercambio de golpes
-newAztec.drinkNesquik();
-newMaya.drinkColaCao();
-newMaya.attack(newAztec);
-newAztec.attack(newMaya);
+  }
+  
+  let mayaWarrior = new Maya(50, 40);
+  let aztecaWarrior = new Azteca(40, 30);
+  console.log("Los guerreros se preparan:");
+  aztecaWarrior.drinkNesquik();
+  mayaWarrior.drinkColaCao();
+  console.log("Guerrero Maya ataca a Maya:");
+  mayaWarrior.attack(aztecaWarrior.defend(20)); // se pasa valor por parámetro en defend()
+  console.log("Guerrero Azteca ataca a Maya:");
+  aztecaWarrior.attack(mayaWarrior.defend(10));
 
 
 
