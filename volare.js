@@ -21,13 +21,13 @@ paintSingleImage: Acepta la url de una imagen y agrega a gallery el elemento cre
 paintMultipleImages: Acepta un conjunto de imágenes y agrega a gallery, uno a uno, el elemento creado por createImageTag. */
 
 
-const civilAircrafts = ['assets/avion-civil-1.jpg','assets/avion-civil-2.jpg','assets/avion-civil-3.jpg','assets/avion-civil-4.jpg','assets/avion-civil-5.jpg'];
+const civilImages = ['/Volumes/fullstack_thebridge/curso_fullstack/ex_objects/assets/avioncivil/avion-civil-1.jpg','/Volumes/fullstack_thebridge/curso_fullstack/ex_objects/assets/avioncivil/avion-civil-2.jpg','/Volumes/fullstack_thebridge/curso_fullstack/ex_objects/assets/avioncivil/avion-civil-3.jpg','/Volumes/fullstack_thebridge/curso_fullstack/ex_objects/assets/avioncivil/avion-civil-4.jpg','/Volumes/fullstack_thebridge/curso_fullstack/ex_objects/assets/avioncivil/avion-civil-5.jpg'];
 
-const militaryAircrafts = ['assets/avion-militar-1.jpg','assets/avion-militar-2.jpg','assets/avion-militar-3.jpg','assets/avion-militar-4.jpg','assets/avion-militar-5.jpg'];
+const militaryImages = ['/Volumes/fullstack_thebridge/curso_fullstack/ex_objects/assets/avionmilitar/avion-militar-1.jpg','/Volumes/fullstack_thebridge/curso_fullstack/ex_objects/assets/avionmilitar/avion-militar-2.jpg','/Volumes/fullstack_thebridge/curso_fullstack/ex_objects/assets/avionmilitar/avion-militar-3.jpg','/Volumes/fullstack_thebridge/curso_fullstack/ex_objects/assets/avionmilitar/avion-militar-4.jpg','/Volumes/fullstack_thebridge/curso_fullstack/ex_objects/assets/avionmilitar/avion-militar-5.jpg'];
 
-const civilHelicopters = ['assets/helicoptero-civil-1.jpg','assets/helicoptero-civil-2.jpg','assets/helicoptero-civil-3.jpg','assets/helicoptero-civil-4.jpg','assets/helicoptero-civil-5.jpg'];
+const civilHelicopters = ['/Volumes/fullstack_thebridge/curso_fullstack/ex_objects/assets/avionmilitar/avion-militar-1.jpg','/Volumes/fullstack_thebridge/curso_fullstack/ex_objects/assets/avionmilitar/avion-militar-2.jpg','/Volumes/fullstack_thebridge/curso_fullstack/ex_objects/assets/avionmilitar/avion-militar-3.jpg','/Volumes/fullstack_thebridge/curso_fullstack/ex_objects/assets/avionmilitar/avion-militar-4.jpg','/Volumes/fullstack_thebridge/curso_fullstack/ex_objects/assets/avionmilitar/avion-militar-5.jpg'];
 
-const militaryHelicopter = ['assets/helicoptero-militar-1.jpg','assets/helicoptero-militar-2.jpg','assets/helicoptero-militar-3.jpg','assets/helicoptero-militar-4.jpg','assets/helicoptero-militar-5.jpg'];
+const militaryHelicopter = ['/Volumes/fullstack_thebridge/curso_fullstack/ex_objects/assets/helicivil/helicoptero-civil-1.jpg','/Volumes/fullstack_thebridge/curso_fullstack/ex_objects/assets/helicivil/helicoptero-civil-2.jpg','/Volumes/fullstack_thebridge/curso_fullstack/ex_objects/assets/helicivil/helicoptero-civil-3.jpg','/Volumes/fullstack_thebridge/curso_fullstack/ex_objects/assets/helicivil/helicoptero-civil-4.jpg','/Volumes/fullstack_thebridge/curso_fullstack/ex_objects/assets/helicivil/helicoptero-civil-5.jpg'];
 
 class Gallery {
     constructor(civilImages, militaryImages) {
@@ -45,7 +45,10 @@ class Gallery {
     }
     
     getAll() {
-        return [...this.civilImages,...this.militaryImages]
+        return {
+            civil: this.civilImages,
+            military: this.militaryImages
+        };
     }
 }
 
@@ -64,7 +67,7 @@ class Painter {
         const img = document.createElement("img");
         img.src = imageUrl;
         picture.appendChild(img);
-        return picture
+        return picture;
     }
 
     paintSingleImage(imageUrl) {
@@ -72,8 +75,8 @@ class Painter {
         this.gallery.appendChild(imageTag);
     }
 
-    paintMultipleImages(arrayOfImages) {
-        arrayOfImages.forEach(imageUrl => {
+    paintMultipleImages(imagesUrls) {
+        imagesUrls.forEach(imageUrl => {
             this.paintSingleImage(imageUrl)
             
         });
@@ -81,6 +84,14 @@ class Painter {
     }
 }
 
-const aircrafts = new Gallery(civilAircrafts, militaryAircrafts);
-const helicopters = new Gallery(civilHelicopters, militaryHelicopter);
+const gallery = new Gallery(civilImages, militaryImages);
 const painter = new Painter();
+
+// Pintar una sola imagen
+const randomCivilImage = gallery.getRandomCivil();
+painter.paintSingleImage(randomCivilImage);
+
+// Pintar muchas imágenes
+const allImages = gallery.getAll();
+painter.paintMultipleImages(allImages.civil);
+painter.paintMultipleImages(allImages.military);
